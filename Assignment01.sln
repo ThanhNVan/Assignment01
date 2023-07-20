@@ -19,19 +19,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Docs", "01 Docs", "{1CEB
 		01 Docs\DB for Assignment 01.sql = 01 Docs\DB for Assignment 01.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "02 Libraries\SharedLibrary\SharedLibrary.csproj", "{899E2A0D-31D2-44FE-9FA1-511C7E2F926F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibraries", "02 Libraries\SharedLibrary\SharedLibraries.csproj", "{899E2A0D-31D2-44FE-9FA1-511C7E2F926F}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Assignment01.SqlDatabaseProvider", "03 Databases\Assignment01.SqlDatabaseProvider\Assignment01.SqlDatabaseProvider.sqlproj", "{80365581-82E4-4892-AF5E-EDE8E74F2729}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment01.EntityProviders", "04 Codes\Assignment01.EntityProviders\Assignment01.EntityProviders.csproj", "{3DB5EA1D-19E5-428A-B112-0F71AC823543}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.EntityProviders", "04 Codes\Assignment01.EntityProviders\Assignment01.EntityProviders.csproj", "{3DB5EA1D-19E5-428A-B112-0F71AC823543}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment01.DataProviders", "04 Codes\Assignment01.DataProviders\Assignment01.DataProviders.csproj", "{A15C4668-B27C-462C-964C-06F1C5985C52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.DataProviders", "04 Codes\Assignment01.DataProviders\Assignment01.DataProviders.csproj", "{A15C4668-B27C-462C-964C-06F1C5985C52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment01.LogicProviders", "04 Codes\Assignment01.LogicProviders\Assignment01.LogicProviders.csproj", "{D26A4DDA-ED4F-45FA-BFEC-72BCC0373149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.LogicProviders", "04 Codes\Assignment01.LogicProviders\Assignment01.LogicProviders.csproj", "{D26A4DDA-ED4F-45FA-BFEC-72BCC0373149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment01.WebApiHost", "05 Hosts\Assignment01.WebApiHost\Assignment01.WebApiHost.csproj", "{87F78B04-DED8-450A-AB11-731313542DDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.WebApiHost", "05 Hosts\Assignment01.WebApiHost\Assignment01.WebApiHost.csproj", "{87F78B04-DED8-450A-AB11-731313542DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment01.BlazorWebApp", "06 Apps\Assignment01.BlazorWebApp\Assignment01.BlazorWebApp.csproj", "{3F72C8C3-46A3-4F34-A146-8050E36F0DDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.BlazorWebApp", "06 Apps\Assignment01.BlazorWebApp\Assignment01.BlazorWebApp.csproj", "{3F72C8C3-46A3-4F34-A146-8050E36F0DDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

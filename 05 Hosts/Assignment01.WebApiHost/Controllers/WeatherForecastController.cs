@@ -1,4 +1,5 @@
 using Assignment01.EntityProviders;
+using Assignment01.LogicProviders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +14,12 @@ public class WeatherForecastController : ControllerBase {
 };
 
     private readonly ILogger<WeatherForecastController> _logger;
-    private readonly IDbContextFactory<AppDbContext> _dbContext;
+    private readonly ICategoryLogicProviders _category;
 
     public WeatherForecastController(ILogger<WeatherForecastController> logger,
-                                    IDbContextFactory<AppDbContext> dbContext) {
+                                    ICategoryLogicProviders categoryLogicProviders) {
         _logger = logger;
-        this._dbContext = dbContext;    
+        this._category = categoryLogicProviders;    
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
@@ -33,8 +34,10 @@ public class WeatherForecastController : ControllerBase {
 
     [HttpGet("hehe")]
     public async Task<ActionResult<List<Category>>> GetCategoryAsync() {
-        var dbContext = this._dbContext.CreateDbContext();
-        var result = await dbContext.Categories.ToListAsync();  
-        return result;
+        var result = await this._category.GetListAllAsync();
+        if (result.Count > 0 ) {
+            return Ok(result);
+        }
+        return BadRequest();
     }
 }
