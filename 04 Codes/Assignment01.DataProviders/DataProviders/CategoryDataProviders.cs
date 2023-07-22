@@ -17,7 +17,8 @@ public class CategoryDataProviders : BaseEntityDataProvider<Category, AppDbConte
         var result = default(Category);
         try {
             using (var context = this.GetContext()) {
-                result = await EntityFrameworkQueryableExtensions.FirstOrDefaultAsync(EntityFrameworkQueryableExtensions.AsNoTracking(context.Set<Category>()), (Category x) => x.CategoryId == id);
+                result = await EntityFrameworkQueryableExtensions.
+                    FirstOrDefaultAsync(EntityFrameworkQueryableExtensions.AsNoTracking(context.Set<Category>()), (Category x) => x.CategoryId == id);
                 return result;
             }
         } catch (Exception ex) {

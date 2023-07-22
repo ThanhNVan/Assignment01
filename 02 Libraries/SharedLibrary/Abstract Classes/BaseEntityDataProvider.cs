@@ -21,7 +21,6 @@ public abstract class BaseEntityDataProvider<TEntity, TContext> : IBaseEntityDat
     }
     #endregion
 
-
     public async virtual Task<List<TEntity>> GetListAllAsync() {
         try {
             using (TContext context = GetContext()) {

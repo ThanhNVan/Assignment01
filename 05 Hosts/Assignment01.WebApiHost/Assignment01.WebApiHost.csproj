@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\04 Codes\Assignment01.LogicProviders\Assignment01.LogicProviders.csproj" />
+    <ProjectReference Include="..\..\04 Codes\Assignment01.WebApiPoviders\Assignment01.WebApiPoviders.csproj" />
   </ItemGroup>
 
 </Project>
