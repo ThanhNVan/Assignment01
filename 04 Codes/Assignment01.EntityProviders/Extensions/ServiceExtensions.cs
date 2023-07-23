@@ -22,5 +22,10 @@ public static class ServiceExtensions
             });
             options.EnableSensitiveDataLogging();
         });
+
+        var adminEntity = new Admin();
+        configuration.GetSection("Admin").Bind(adminEntity);
+
+        services.AddSingleton<Admin>(adminEntity);
     }
 }

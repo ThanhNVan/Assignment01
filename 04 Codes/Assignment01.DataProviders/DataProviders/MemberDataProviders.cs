@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SharedLibraries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment01.DataProviders;
 
@@ -23,6 +18,19 @@ public class MemberDataProviders : BaseEntityDataProvider<Member, AppDbContext>,
         try {
             using (var context = this.GetContext()) {
                 result = await EntityFrameworkQueryableExtensions.FirstOrDefaultAsync(EntityFrameworkQueryableExtensions.AsNoTracking(context.Set<Member>()), (Member x) => x.MemberId == id);
+                return result;
+            }
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return result;
+        }
+    }
+
+    public async Task<Member> LoginAsync(string email, string password) {
+        var result = default(Member);
+        try {
+            using (var context = this.GetContext()) {
+                result = await EntityFrameworkQueryableExtensions.FirstOrDefaultAsync(EntityFrameworkQueryableExtensions.AsNoTracking(context.Set<Member>()), (Member x) => x.Email == email && x.Password == password);
                 return result;
             }
         } catch (Exception ex) {

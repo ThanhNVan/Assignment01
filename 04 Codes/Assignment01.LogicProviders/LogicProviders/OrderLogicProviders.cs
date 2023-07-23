@@ -24,5 +24,14 @@ public class OrderLogicProviders : BaseEntityLogicProvider<Order, IOrderDataProv
         }
         return await this._dataProvider.GetSingleByIdAsync(id);
     }
+
+
+    public async Task<List<Order>> GetListByMemberIdAsync(int memberId) {
+        if (memberId == null) {
+            return null;
+        }
+
+        return await this._dataProvider.GetListByMemberIdAsync(memberId);  
+    }
     #endregion
 }

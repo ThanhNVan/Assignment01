@@ -4,19 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace Assignment01.EntityProviders;
 
-public partial class Member
+public partial class Member : Admin
 {
     public int MemberId { get; set; }
 
-    public string Email { get; set; } = null!;
+    public string CompanyName { get; set; } = string.Empty;
 
-    public string CompanyName { get; set; } = null!;
+    public string City { get; set; } = string.Empty;
 
-    public string City { get; set; } = null!;
-
-    public string Country { get; set; } = null!;
-
-    public string Password { get; set; } = null!;
+    public string Country { get; set; } = string.Empty;
 
     [JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();

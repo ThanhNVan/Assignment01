@@ -3,19 +3,24 @@ using Assignment01.LogicProviders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Assignment01.WebApiPoviders;
 
 [ApiController]
 [Route("[controller]")]
-public class CategoryController : ControllerBase {
+public class OrderDetailController : ControllerBase {
     #region [ Fields ]
-    private readonly ILogger<CategoryController> _logger;
+    private readonly ILogger<OrderDetailController> _logger;
     private readonly LogicContext _logicContext;
     #endregion
 
     #region [ CTor ]
-    public CategoryController(ILogger<CategoryController> logger,
+    public OrderDetailController(ILogger<OrderDetailController> logger,
                                 LogicContext logicContext) {
         this._logger = logger;
         this._logicContext = logicContext;
@@ -24,14 +29,14 @@ public class CategoryController : ControllerBase {
 
     #region [ Methods - CRUD ]
     [HttpPost]
-    public async Task<ActionResult<bool>> AddAsync([FromBody] Category category) {
+    public async Task<ActionResult<bool>> AddAsync([FromBody] OrderDetail orderDetail) {
         try {
-            var dbEntity = await this._logicContext.Category.GetSingleByIdAsync(category.CategoryId);
+            var dbEntity = await this._logicContext.OrderDetail.GetSingleByOrderIdAndProductIdAsync(orderDetail.OrderId, orderDetail.ProductId);
             if (dbEntity != null) {
                 return BadRequest("Duplicated entity");
             }
 
-            var result = await this._logicContext.Category.AddAsync(category);
+            var result = await this._logicContext.OrderDetail.AddAsync(orderDetail);
 
             if (result) {
                 return Ok("Added");
@@ -49,9 +54,9 @@ public class CategoryController : ControllerBase {
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<List<Category>>> GetListAllAsync() {
+    public async Task<ActionResult<List<OrderDetail>>> GetListAllAsync() {
         try {
-            var result = await this._logicContext.Category.GetListAllAsync();
+            var result = await this._logicContext.OrderDetail.GetListAllAsync();
             if (result.Count > 0) {
                 return Ok(result);
             }
@@ -66,10 +71,10 @@ public class CategoryController : ControllerBase {
         }
     }
 
-    [HttpGet("single/{id}")]
-    public async Task<ActionResult<Category>> GetSingleByIdAsync(int id) {
+    [HttpGet("single/{orderId}&&{productId}")]
+    public async Task<ActionResult<OrderDetail>> GetSingleByIdAsync(int orderId, int productId) {
         try {
-            var result = await this._logicContext.Category.GetSingleByIdAsync(id);
+            var result = await this._logicContext.OrderDetail.GetSingleByOrderIdAndProductIdAsync(orderId, productId);
             if (result == null) {
                 return BadRequest("Empty");
             }
@@ -85,9 +90,9 @@ public class CategoryController : ControllerBase {
     }
 
     [HttpPut]
-    public async Task<ActionResult<bool>> UpdateAsync([FromBody] Category category) {
+    public async Task<ActionResult<bool>> UpdateAsync([FromBody] OrderDetail OrderDetail) {
         try {
-            var result = await this._logicContext.Category.UpdateAsync(category);
+            var result = await this._logicContext.OrderDetail.UpdateAsync(OrderDetail);
 
             if (result) {
                 return Ok("Updated");
@@ -104,16 +109,16 @@ public class CategoryController : ControllerBase {
         }
     }
 
-    [HttpDelete("delete/{id}")]
-    public async Task<ActionResult<bool>> DeleteAsync(int id) {
+    [HttpDelete("delete/{orderId}&&{productId}")]
+    public async Task<ActionResult<bool>> DeleteAsync(int orderId, int productId) {
         try {
-            var dbEntity = await this._logicContext.Category.GetSingleByIdAsync(id);
+            var dbEntity = await this._logicContext.OrderDetail.GetSingleByOrderIdAndProductIdAsync(orderId, productId);
 
             if (dbEntity == null) {
                 return BadRequest("Not existed entity");
-            } 
+            }
 
-            var result = await this._logicContext.Category.DeleteAsync(dbEntity);
+            var result = await this._logicContext.OrderDetail.DeleteAsync(dbEntity);
 
             if (result) {
                 return Ok("Deleted");
@@ -121,6 +126,23 @@ public class CategoryController : ControllerBase {
 
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
 
+        } catch (ArgumentNullException ex) {
+            this._logger.LogError(ex.Message);
+            return BadRequest();
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
+    #endregion
+
+    #region [ Methods -  ]
+    [HttpGet("ByOrderId/{orderId}")]
+    public async Task<ActionResult<List<OrderDetail>>> GetListByOderId(int orderId) {
+        try {
+            var dbResult = await this._logicContext.OrderDetail.GetListByOrderId(orderId);
+
+            return Ok(dbResult);
         } catch (ArgumentNullException ex) {
             this._logger.LogError(ex.Message);
             return BadRequest();

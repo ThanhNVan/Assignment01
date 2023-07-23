@@ -1,6 +1,7 @@
 ﻿using Assignment01.DataProviders;
 using Assignment01.EntityProviders;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using SharedLibraries;
 
 namespace Assignment01.LogicProviders;
@@ -18,6 +19,14 @@ public class MemberLogicProviders : BaseEntityLogicProvider<Member, IMemberDataP
             return null;
         }
         return await this._dataProvider.GetSingleByIdAsync(id);
+    }
+
+    public async Task<Member> LoginAsync(string email, string password) {
+        if (email.IsNullOrEmpty() || password.IsNullOrEmpty()) {
+            return null;
+        }
+
+        return await this._dataProvider.LoginAsync(email, password); 
     }
     #endregion
 }

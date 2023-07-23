@@ -10,9 +10,9 @@ public partial class Product
 
     public int? CategoryId { get; set; }
 
-    public string ProductName { get; set; } = null!;
+    public string ProductName { get; set; } = string.Empty;
 
-    public string Weight { get; set; } = null!;
+    public string Weight { get; set; } = string.Empty;
 
     public decimal UnitPrice { get; set; }
 

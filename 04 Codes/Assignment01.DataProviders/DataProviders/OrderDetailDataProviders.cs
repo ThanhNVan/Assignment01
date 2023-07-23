@@ -27,5 +27,23 @@ public class OrderDetailDataProviders : BaseEntityDataProvider<OrderDetail, AppD
             return result;
         }
     }
+
+    public async Task<List<OrderDetail>> GetListByOrderId(int orderId) {
+        var result = default(List<OrderDetail>);
+        try {
+            using (var context = this.GetContext()) {
+                result = await EntityFrameworkQueryableExtensions.ToListAsync(EntityFrameworkQueryableExtensions
+                    .AsNoTracking(from x in context.Set<OrderDetail>()
+                                  where x.OrderId == orderId
+                                  select x));
+                return result;
+            }
+
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return result;
+        }
+
+    }
     #endregion
 }

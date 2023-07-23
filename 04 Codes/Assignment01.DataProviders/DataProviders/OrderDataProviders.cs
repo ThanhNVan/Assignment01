@@ -30,5 +30,23 @@ public class OrderDataProviders : BaseEntityDataProvider<Order, AppDbContext>, I
             return result;
         }
     }
+
+    public async Task<List<Order>> GetListByMemberIdAsync(int memberId) {
+        var result = default(List<Order>);
+        try {
+
+            using (var context = this.GetContext()) {
+                result = await EntityFrameworkQueryableExtensions.ToListAsync(EntityFrameworkQueryableExtensions
+                    .AsNoTracking(from x in context.Set<Order>()
+                                  where x.MemberId == memberId
+                                  select x));
+                return result;
+            }
+
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return result;
+        }
+    }
     #endregion
 }
