@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Assignment01.WebApiPoviders;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class OrderDetailController : ControllerBase {
     #region [ Fields ]
     private readonly ILogger<OrderDetailController> _logger;

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Assignment01.WebApiPoviders;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ProductController : ControllerBase
 {
     #region [ Fields ]
@@ -53,10 +53,8 @@ public class ProductController : ControllerBase
     public async Task<ActionResult<List<Product>>> GetListAllAsync() {
         try {
             var result = await this._logicContext.Product.GetListAllAsync();
-            if (result.Count > 0) {
-                return Ok(result);
-            }
-            return BadRequest("Empty");
+
+            return Ok(result);
 
         } catch (ArgumentNullException ex) {
             this._logger.LogError(ex.Message);
@@ -133,7 +131,7 @@ public class ProductController : ControllerBase
     #endregion
 
     #region [ Methods -  ]
-    [HttpGet("ByCategoryId/{categoryId}")]
+    [HttpGet("bycategoryid/{categoryId}")]
     public async Task<ActionResult<List<Product>>> GetListByCategoryIdAsync(int categoryId) {
         try {
             var dbResult = await this._logicContext.Product.GetListByCategoryIdAsync(categoryId);
@@ -148,7 +146,7 @@ public class ProductController : ControllerBase
         }
     }
 
-    [HttpGet("Search/{searchString}")]
+    [HttpGet("search/{searchString}")]
     public async Task<ActionResult<List<Product>>> GetListBySearchStringAsync(string searchString) {
         try {
 
@@ -165,7 +163,7 @@ public class ProductController : ControllerBase
         }
     }
 
-    [HttpGet("Search/{fromPrice}&&{toPrice}")]
+    [HttpGet("search/{fromPrice}&&{toPrice}")]
     public async Task<ActionResult<List<Product>>> GetListByUnitPriceRangeAsync(decimal fromPrice, decimal toPrice) {
         try {
             var dbResult = await this._logicContext.Product.GetListByUnitPriceRangeAsync(fromPrice, toPrice);

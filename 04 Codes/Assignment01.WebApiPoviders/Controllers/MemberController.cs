@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Assignment01.WebApiPoviders;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class MemberController : ControllerBase
 {
     #region [ Fields ]

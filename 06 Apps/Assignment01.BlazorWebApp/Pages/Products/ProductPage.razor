@@ -1,0 +1,33 @@
+﻿@page "/Product"
+@namespace Assignment01.BlazorWebApp
+
+<PageTitle>Products</PageTitle>
+
+<h3>ProductPage</h3>
+@if (ProductList == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ProductList) {
+                <tr>
+                    <td>@item.CategoryId</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.Weight</td>
+                    <td>@item.UnitPrice</td>
+                    <td>@item.UnitsInStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

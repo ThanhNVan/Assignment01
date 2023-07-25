@@ -6,4 +6,9 @@
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\04 Codes\Assignment01.EntityProviders\Assignment01.EntityProviders.csproj" />
+    <ProjectReference Include="..\..\04 Codes\Assignment01.ServiceProviders\Assignment01.ServiceProviders.csproj" />
+  </ItemGroup>
+
 </Project>

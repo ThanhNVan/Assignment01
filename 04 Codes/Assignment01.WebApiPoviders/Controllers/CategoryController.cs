@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Assignment01.WebApiPoviders;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class CategoryController : ControllerBase {
     #region [ Fields ]
     private readonly ILogger<CategoryController> _logger;

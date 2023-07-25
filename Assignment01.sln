@@ -33,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.WebApiHost", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.BlazorWebApp", "06 Apps\Assignment01.BlazorWebApp\Assignment01.BlazorWebApp.csproj", "{3F72C8C3-46A3-4F34-A146-8050E36F0DDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment01.WebApiPoviders", "04 Codes\Assignment01.WebApiPoviders\Assignment01.WebApiPoviders.csproj", "{77FD26CB-C811-467A-8F57-80D0448BA593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.WebApiPoviders", "04 Codes\Assignment01.WebApiPoviders\Assignment01.WebApiPoviders.csproj", "{77FD26CB-C811-467A-8F57-80D0448BA593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment01.ServiceProviders", "04 Codes\Assignment01.ServiceProviders\Assignment01.ServiceProviders.csproj", "{B811EA7B-20B1-4B7A-A2A7-E4FD1A6EA059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment01.ServiceProviders", "04 Codes\Assignment01.ServiceProviders\Assignment01.ServiceProviders.csproj", "{B811EA7B-20B1-4B7A-A2A7-E4FD1A6EA059}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

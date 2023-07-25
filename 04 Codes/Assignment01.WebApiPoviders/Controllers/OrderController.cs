@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace Assignment01.WebApiPoviders;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class OrderController : ControllerBase
 {
     #region [ Fields ]
@@ -136,7 +136,6 @@ public class OrderController : ControllerBase
     [HttpGet("ByMemberId/{memberId}")]
     public async Task<ActionResult<List<Order>>> GetListByMemberIdAsync(int memberId) {
         try {
-
             var dbResult = await this._logicContext.Order.GetListByMemberIdAsync(memberId);
             return Ok(dbResult);
 
