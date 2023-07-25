@@ -23,7 +23,7 @@ public class CategoryController : ControllerBase {
     #endregion
 
     #region [ Methods - CRUD ]
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<bool>> AddAsync([FromBody] Category category) {
         try {
             var dbEntity = await this._logicContext.Category.GetSingleByIdAsync(category.CategoryId);
@@ -84,7 +84,7 @@ public class CategoryController : ControllerBase {
         }
     }
 
-    [HttpPut]
+    [HttpPut("update")]
     public async Task<ActionResult<bool>> UpdateAsync([FromBody] Category category) {
         try {
             var result = await this._logicContext.Category.UpdateAsync(category);

@@ -16,12 +16,18 @@ public static class Routing
 	public static string MemberApi = "api/member";
 	public static string OrderApi = "api/order";
 	public static string OrderDetailApi = "api/orderdetail";
-	#endregion
+    #endregion
 
-	#region [ Properties - Methods ]
-	public static string GetAll = "/all";
+    #region [ Properties - Methods ]
+    public static string Add = "/add";
+    public static string GetAll = "/all";
 	public static string GetSingle = "/single/";
+	public static string Update = "/update/";
 	public static string Delete = "/delete/";
 	public static string Search = "/search/";
+	public static string ByCategoryId = "/bycategoryid/";
+	public static string Login = "/login";
+	public static string ByMemberId = "/ByMemberId/";
+	public static string ByOrderId = "/ByOrderId/";
 	#endregion
 }

@@ -24,7 +24,7 @@ public class OrderController : ControllerBase
     #endregion
 
     #region [ Methods - CRUD ]
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<bool>> AddAsync([FromBody] Order order) {
         try {
             var dbEntity = await this._logicContext.Order.GetSingleByIdAsync(order.OrderId);
@@ -85,7 +85,7 @@ public class OrderController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("update")]
     public async Task<ActionResult<bool>> UpdateAsync([FromBody] Order order) {
         try {
             var result = await this._logicContext.Order.UpdateAsync(order);

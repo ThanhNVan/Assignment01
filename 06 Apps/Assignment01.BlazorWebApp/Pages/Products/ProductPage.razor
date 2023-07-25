@@ -21,7 +21,11 @@
         <tbody>
             @foreach (var item in ProductList) {
                 <tr>
-                    <td>@item.CategoryId</td>
+                    @if (item.Category == null) {
+                        <td>@item.CategoryId</td>
+                    } else {
+                        <td>@item.Category.CategoryName</td>
+                    }
                     <td>@item.ProductName</td>
                     <td>@item.Weight</td>
                     <td>@item.UnitPrice</td>

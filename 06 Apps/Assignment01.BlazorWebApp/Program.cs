@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Assignment01.ServiceProviders;
+using System;
 
 namespace Assignment01.BlazorWebApp;
 
@@ -12,6 +13,10 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Services.AddMemoryCache();
+        builder.Services.AddSession(options => {
+            options.IdleTimeout = TimeSpan.FromDays(1);
+        });
         builder.Services.AddHttpClient();
         builder.Services.AddServices();
         builder.Services.AddRazorPages();

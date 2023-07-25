@@ -18,15 +18,19 @@ public class ProductServiceProviders : IProductServiceProviders
         this._httpClient = httpClient;
     }
     #endregion
+
+    #region [ Methods - CRUD ]
+
     public async Task<List<Product>> GetListAllProductsAsync() {
         var result = await this._httpClient.GetFromJsonAsync<List<Product>>(Routing.BaseUrl + Routing.ProductApi + Routing.GetAll);
 
         return result;
     }
 
-    public async Task<Product> GetSingleProductByIdAsync() {
-        throw new System.NotImplementedException();
-    }
+    public async Task<Product> GetSingleProductByIdAsync(int productId) {
+        var result = await this._httpClient.GetFromJsonAsync<Product>(Routing.BaseUrl + Routing.ProductApi + Routing.GetSingle + productId.ToString());
 
-    
+        return result;
+    }
+    #endregion    
 }

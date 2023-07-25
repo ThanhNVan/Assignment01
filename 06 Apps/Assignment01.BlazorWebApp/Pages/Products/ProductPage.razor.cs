@@ -19,13 +19,16 @@ public partial class ProductPage
     protected override async Task OnInitializedAsync() {
         this.ProductList = await this.ServiceContext.Products.GetListAllProductsAsync();
         await this.AddCategoryAsync(this.ProductList);
+
+        var xtra = await this.ServiceContext.Products.GetSingleProductByIdAsync(1);
+        this.ProductList.Add(xtra);
     }
     #endregion
 
     #region [ Private Methods -  ]
     private async Task AddCategoryAsync(List<Product> products) {
         foreach (var item in products) {
-           // item.Category = await this.ServiceContext.
+            item.Category = await this.ServiceContext.Categories.GetSingleByIdAsync(item.CategoryId.Value);
         }
     }
     #endregion

@@ -28,7 +28,7 @@ public class MemberController : ControllerBase
     #endregion
 
     #region [ Methods - CRUD ]
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<bool>> AddAsync([FromBody] Member Member) {
         try {
             var dbEntity = await this._logicContext.Member.GetSingleByIdAsync(Member.MemberId);
@@ -89,7 +89,7 @@ public class MemberController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPut("update")]
     public async Task<ActionResult<bool>> UpdateAsync([FromBody] Member Member) {
         try {
             var result = await this._logicContext.Member.UpdateAsync(Member);
