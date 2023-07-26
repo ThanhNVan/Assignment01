@@ -9,7 +9,8 @@ namespace Assignment01.ServiceProviders;
 public static class Routing
 {
 	#region [ Properties - Base ]
-	public static string BaseUrl = "https://localhost:7006/";
+	public static string BaseUrl = "https://localhost:5209/";
+	//public static string BaseUrl = "https://localhost:7006/";
 	public static string LocalHost = "http://localhost:5209";
 	public static string ProductApi = "api/product";
 	public static string CategoryApi = "api/category";

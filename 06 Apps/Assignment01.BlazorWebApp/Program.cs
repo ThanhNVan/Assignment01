@@ -13,9 +13,10 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddMemoryCache();
         builder.Services.AddSession(options => {
-            options.IdleTimeout = TimeSpan.FromDays(1);
+            options.IdleTimeout = TimeSpan.FromDays(0.8);
         });
         builder.Services.AddHttpClient();
         builder.Services.AddServices();

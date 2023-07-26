@@ -8,4 +8,7 @@ namespace Assignment01.ServiceProviders;
 
 public interface IMemberServiceProviders
 {
+    #region [ Methods - Login ]
+    Task<object> LoginAsync(string email, string password);
+    #endregion
 }

@@ -147,7 +147,7 @@ public class MemberController : ControllerBase
 
             var isAdmin = this.IsAdminLogin(admin.Email, admin.Password);
             if (isAdmin) {
-                return Ok("Admin");
+                return Ok(AppRole.Admin);
             }
 
             var dbEntity = await this._logicContext.Member.LoginAsync(admin.Email, admin.Password);

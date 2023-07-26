@@ -22,13 +22,15 @@ public class ProductServiceProviders : IProductServiceProviders
     #region [ Methods - CRUD ]
 
     public async Task<List<Product>> GetListAllProductsAsync() {
-        var result = await this._httpClient.GetFromJsonAsync<List<Product>>(Routing.BaseUrl + Routing.ProductApi + Routing.GetAll);
+        var url = Routing.BaseUrl + Routing.ProductApi + Routing.GetAll;
+        var result = await this._httpClient.GetFromJsonAsync<List<Product>>(url);
 
         return result;
     }
 
     public async Task<Product> GetSingleProductByIdAsync(int productId) {
-        var result = await this._httpClient.GetFromJsonAsync<Product>(Routing.BaseUrl + Routing.ProductApi + Routing.GetSingle + productId.ToString());
+        var url = Routing.BaseUrl + Routing.ProductApi + Routing.GetSingle + productId.ToString();
+        var result = await this._httpClient.GetFromJsonAsync<Product>(url);
 
         return result;
     }
