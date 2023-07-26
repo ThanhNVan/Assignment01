@@ -1,9 +1,9 @@
 using Assignment01.BlazorWebApp.Data;
+using Assignment01.ServiceProviders;
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Assignment01.ServiceProviders;
-using System;
 
 namespace Assignment01.BlazorWebApp;
 
@@ -13,12 +13,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        builder.Services.AddHttpContextAccessor();
-        builder.Services.AddMemoryCache();
-        builder.Services.AddSession(options => {
-            options.IdleTimeout = TimeSpan.FromDays(0.8);
-        });
         builder.Services.AddHttpClient();
+        builder.Services.AddBlazoredSessionStorage();
         builder.Services.AddServices();
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
