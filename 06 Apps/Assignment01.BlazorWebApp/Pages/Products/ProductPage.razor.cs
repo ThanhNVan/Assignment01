@@ -1,6 +1,8 @@
 ﻿using Assignment01.EntityProviders;
 using Assignment01.ServiceProviders;
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,18 +12,33 @@ public partial class ProductPage
 {
     #region [ Properties ]
     [Inject]
+    private ISessionStorageService SessionStorage { get; set; }
+
+    [Inject]
     public ServiceContext ServiceContext { get; set; }
+
+    private string Role { get; set; } = string.Empty;
+
+    private bool IsAuthorized { get; set; } = false;
 
     public List<Product> ProductList { get; set; }
     #endregion
 
     #region [ Methods - OnInitializedAsync ]
     protected override async Task OnInitializedAsync() {
-        this.ProductList = await this.ServiceContext.Products.GetListAllProductsAsync();
-        await this.AddCategoryAsync(this.ProductList);
+        try {
+            this.Role = await SessionStorage.GetItemAsStringAsync(AppRole.Role);
+        } catch {
+            this.Role = string.Empty;
+        }
+        StateHasChanged();
 
-        var xtra = await this.ServiceContext.Products.GetSingleProductByIdAsync(1);
-        this.ProductList.Add(xtra);
+        if (!Role.IsNullOrEmpty()) {
+            this.IsAuthorized = true;
+            this.ProductList = await this.ServiceContext.Products.GetListAllProductsAsync();
+            await this.AddCategoryAsync(this.ProductList);
+        }
+        StateHasChanged();
     }
     #endregion
 

@@ -1,37 +1,41 @@
 ﻿@page "/Product"
 @namespace Assignment01.BlazorWebApp
-
+@using Microsoft.Fast.Components.FluentUI
+@if (IsAuthorized) {
 <PageTitle>Products</PageTitle>
-
-<h3>ProductPage</h3>
-@if (ProductList == null) {
-    <p><em>Loading...</em></p>
-} else {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Name</th>
-                <th>Weight</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in ProductList) {
+    <h3>ProductPage</h3>
+    @if (ProductList == null) {
+        <p><em>Loading...</em></p>
+    } else {
+        <table class="table">
+            <thead>
                 <tr>
-                    @if (item.Category == null) {
-                        <td>@item.CategoryId</td>
-                    } else {
-                        <td>@item.Category.CategoryName</td>
-                    }
-                    <td>@item.ProductName</td>
-                    <td>@item.Weight</td>
-                    <td>@item.UnitPrice</td>
-                    <td>@item.UnitsInStock</td>
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Weight</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in ProductList) {
+                    <tr>
+                        @if (item.Category == null) {
+                            <td>@item.CategoryId</td>
+                        } else {
+                            <td>@item.Category.CategoryName</td>
+                        }
+                        <td>@item.ProductName</td>
+                        <td>@item.Weight</td>
+                        <td>@item.UnitPrice</td>
+                        <td>@item.UnitsInStock</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}else{
+    <PageTitle>Error</PageTitle>
+    <Unauthorized></Unauthorized>
 }

@@ -1,6 +1,9 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.SessionStorage;
+@using Assignment01.EntityProviders;
 
-<PageTitle>Assignment01.BlazorWebApp</PageTitle>
+
+<PageTitle>Assignment01</PageTitle>
 
 <div class="page">
     <div class="sidebar">
@@ -13,3 +16,19 @@
         </article>
     </main>
 </div>
+@code {
+    
+    [Inject]
+    private ISessionStorageService SessionStorage { get; set; }
+
+    private string Role { get; set; } = string.Empty;
+
+    protected override async void OnInitialized() {
+        try {
+            Role = await SessionStorage.GetItemAsStringAsync(AppRole.Role);
+        } catch {
+        }
+            StateHasChanged();
+        base.OnInitialized();
+    }
+}
