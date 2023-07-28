@@ -3,14 +3,26 @@ using Assignment01.ServiceProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assignment01.BlazorWebApp;
 
 public partial class ProductPage
 {
+    #region [ Fields ]
+    private string _searchName;
+    private string _searchFromPrice;
+    private string _searchToPrice;
+    private List<Product> _productListInit;
+    #endregion
+
     #region [ Properties ]
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
     [Inject]
     private ISessionStorageService SessionStorage { get; set; }
 
@@ -19,12 +31,32 @@ public partial class ProductPage
 
     private string Role { get; set; } = string.Empty;
 
-    private bool IsAuthorized { get; set; } = false;
-
     public List<Product> ProductList { get; set; }
+
+    public string SearchName { 
+        get => this._searchName; 
+        set { 
+            this._searchName = value;
+            this.Search();
+        }
+    }
+    public string SearchFromPrice { 
+        get => this._searchFromPrice;
+        set { 
+            this._searchFromPrice = value;
+            this.Search();
+        } 
+    }
+    public string SearchToPrice { 
+        get => this._searchToPrice; 
+        set{ 
+            this._searchToPrice = value;
+            this.Search();
+        } 
+    }
     #endregion
 
-    #region [ Methods - OnInitializedAsync ]
+    #region [ Methods - Override ]
     protected override async Task OnInitializedAsync() {
         try {
             this.Role = await SessionStorage.GetItemAsStringAsync(AppRole.Role);
@@ -34,8 +66,8 @@ public partial class ProductPage
         StateHasChanged();
 
         if (!Role.IsNullOrEmpty()) {
-            this.IsAuthorized = true;
             this.ProductList = await this.ServiceContext.Products.GetListAllProductsAsync();
+            this._productListInit = this.ProductList;
             await this.AddCategoryAsync(this.ProductList);
         }
         StateHasChanged();
@@ -43,10 +75,59 @@ public partial class ProductPage
     #endregion
 
     #region [ Private Methods -  ]
+    private void Search() {
+        //var isSearchName = !string.IsNullOrEmpty(SearchName);
+        var isFromPrice = decimal.TryParse(SearchFromPrice, out decimal fromPrice);
+        var isToPrice = decimal.TryParse(SearchToPrice, out decimal toPrice);
+
+        if (isFromPrice && isToPrice) {
+
+            this.ProductList = this._productListInit.Where(x => x.ProductName.Contains(this.SearchName, StringComparison.InvariantCultureIgnoreCase)
+                                    && fromPrice <= x.UnitPrice 
+                                    && x.UnitPrice <= toPrice).ToList();
+        }
+
+        if (isFromPrice) {
+            this.ProductList = this._productListInit.Where(x => fromPrice <= x.UnitPrice
+                                && x.ProductName.Contains(this.SearchName, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            return;
+        }
+        
+        if (isToPrice) {
+            this.ProductList = this._productListInit.Where(x => x.ProductName.Contains(this.SearchName, StringComparison.InvariantCultureIgnoreCase)
+                                    && x.UnitPrice <= toPrice).ToList();
+            return;
+        } else {
+
+            this.ProductList = this._productListInit.Where(x => x.ProductName.Contains(this.SearchName, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        }
+
+    }
+
     private async Task AddCategoryAsync(List<Product> products) {
         foreach (var item in products) {
             item.Category = await this.ServiceContext.Categories.GetSingleByIdAsync(item.CategoryId.Value);
         }
+    }
+    #endregion
+
+    #region [ Public Methods -  ]
+    public void ProductDetail(int productId) {
+        NavigationManager.NavigateTo($"/Product/{productId}");
+    }
+    
+    public async Task AddProductToCartAsync(int productId) {
+
+    }
+    
+    public async Task DeleteAsync(int productId) {
+
+    }
+    public async Task UpdateAsync(int productId) {
+
+    }
+    public void Add() {
+        this.NavigationManager.NavigateTo("/Product");
     }
     #endregion
 }

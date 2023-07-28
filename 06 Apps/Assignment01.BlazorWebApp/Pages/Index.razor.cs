@@ -25,21 +25,25 @@ public partial class Index
 
     #region [ Methods -  ]
     public async Task LoginAsync() {
-        var response = await this.ServiceContext.Members.LoginAsync(Email, Password);
+        var response = await this.ServiceContext.Members.LoginAdminAsync(Email, Password);
 
         if (response == AppRole.Admin) {
             await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Admin);
-            NavigationManager.NavigateTo($"Product", true);
+            NavigationManager.NavigateTo($"Products", true);
             return;
         }
 
-        if (response.GetType() == typeof(Member)) {
+        var memberResponse = await this.ServiceContext.Members.LoginMemberAsync(Email, Password);
+
+        if (memberResponse!= null) {
             await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Member);
-            NavigationManager.NavigateTo($"Product", true);
+            await SessionStorage.SetItemAsStringAsync("Email", memberResponse.Email);
+            await SessionStorage.SetItemAsync("MemberId", memberResponse.MemberId);
+            NavigationManager.NavigateTo($"Products", true);
             return;
         }
 
-        this.Warning = response.ToString();
+        this.Warning = "Login Error, Please try again";
         return;
     }
     #endregion

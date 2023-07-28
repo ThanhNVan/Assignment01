@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Assignment01.EntityProviders;
 
@@ -12,4 +10,8 @@ public partial class Category
 
     [JsonIgnore]
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+
+    public override string ToString() {
+        return this.CategoryName;
+    }
 }

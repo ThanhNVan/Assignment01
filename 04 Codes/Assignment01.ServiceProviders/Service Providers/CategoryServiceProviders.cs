@@ -28,5 +28,10 @@ public class CategoryServiceProviders : ICategoryServiceProviders
 
         return result;  
     }
+
+    public async Task<List<Category>> GetListAllAsync() {
+        var result = await this._httpClient.GetFromJsonAsync<List<Category>>(Routing.BaseUrl + Routing.CategoryApi + Routing.GetAll);
+        return result;
+    }
     #endregion
 }

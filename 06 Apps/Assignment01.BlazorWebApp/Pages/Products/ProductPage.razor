@@ -1,41 +1,62 @@
-﻿@page "/Product"
+﻿@page "/Products"
 @namespace Assignment01.BlazorWebApp
 @using Microsoft.Fast.Components.FluentUI
-@if (IsAuthorized) {
+@using Assignment01.EntityProviders
+
 <PageTitle>Products</PageTitle>
-    <h3>ProductPage</h3>
-    @if (ProductList == null) {
-        <p><em>Loading...</em></p>
-    } else {
-        <table class="table">
-            <thead>
+<h3>ProductPage</h3>
+@if (ProductList == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <FluentSearch type="text" placeholder="Search by name" @bind-Value=SearchName></FluentSearch>
+    <FluentSearch type="text" placeholder="From Price" @bind-Value=SearchFromPrice></FluentSearch>
+    <FluentSearch type="text" placeholder="To Price" @bind-Value=SearchToPrice></FluentSearch>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ProductList) {
                 <tr>
-                    <th>Category</th>
-                    <th>Name</th>
-                    <th>Weight</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th></th>
+                    @if (item.Category == null) {
+                        <td>@item.CategoryId</td>
+                    } else {
+                        <td>@item.Category.CategoryName</td>
+                    }
+                    <td>@item.ProductName</td>
+                    <td>@item.Weight</td>
+                    <td>@string.Format("{0:n2} VND", item.UnitPrice)</td>
+                    <td>@item.UnitsInStock</td>
+                    <td>
+                        <FluentButton Appearance="Appearance.Filled" @onclick="() => ProductDetail(item.ProductId)">Detail</FluentButton>
+                    </td>
+                    @if (Role == AppRole.Member) {
+                        <td>
+                            <FluentButton Appearance="Appearance.Accent" @onclick="async () =>await AddProductToCartAsync(item.ProductId)">Add To Cart</FluentButton>
+                        </td>
+                    }
+                    @if (Role == AppRole.Admin) {
+                        <td>
+                            <FluentButton Appearance="Appearance.Stealth" @onclick="async () =>await DeleteAsync(item.ProductId)">Delete</FluentButton>
+
+                            <FluentButton Appearance="Appearance.Neutral" @onclick="async () =>await UpdateAsync(item.ProductId)">Update</FluentButton>
+                        </td>
+                    }
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in ProductList) {
-                    <tr>
-                        @if (item.Category == null) {
-                            <td>@item.CategoryId</td>
-                        } else {
-                            <td>@item.Category.CategoryName</td>
-                        }
-                        <td>@item.ProductName</td>
-                        <td>@item.Weight</td>
-                        <td>@item.UnitPrice</td>
-                        <td>@item.UnitsInStock</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
+    @if (Role == AppRole.Admin) {
+     <div>
+            <FluentButton Appearance="Appearance.Accent" @onclick="() => Add()">Add New Product</FluentButton>
+     </div>
     }
-}else{
-    <PageTitle>Error</PageTitle>
-    <Unauthorized></Unauthorized>
 }

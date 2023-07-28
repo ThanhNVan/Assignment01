@@ -1,4 +1,5 @@
 ﻿using Assignment01.EntityProviders;
+using Azure;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
@@ -25,7 +26,7 @@ public class MemberServiceProviders : IMemberServiceProviders
     #endregion
 
     #region [ Methods - Login ]
-    public async Task<object> LoginAsync(string email, string password) {
+    public async Task<string> LoginAdminAsync(string email, string password) {
         var url = Routing.BaseUrl + Routing.MemberApi + Routing.Login;
         var payload = this.GetJsonPayload(new Admin() { Email = email, Password = password });
         var response = await this._httpClient.PostAsync(url, payload);
@@ -35,12 +36,22 @@ public class MemberServiceProviders : IMemberServiceProviders
             return AppRole.Admin;
         }
 
+        return "Not Admin";
+
+    }
+
+    public async Task<Member> LoginMemberAsync(string email, string password) {
+        var url = Routing.BaseUrl + Routing.MemberApi + Routing.Login;
+        var payload = this.GetJsonPayload(new Admin() { Email = email, Password = password });
+        var response = await this._httpClient.PostAsync(url, payload);
+
+        var result = default(Member);
+
         if (response.StatusCode == HttpStatusCode.OK) {
-            return JsonConvert.DeserializeObject<Member>(await response.Content.ReadAsStringAsync());
+            result = JsonConvert.DeserializeObject<Member>(await response.Content.ReadAsStringAsync());
+            return result;
         }
-
-        return await response.Content.ReadAsStringAsync();
-
+        return result;
     }
     #endregion
 

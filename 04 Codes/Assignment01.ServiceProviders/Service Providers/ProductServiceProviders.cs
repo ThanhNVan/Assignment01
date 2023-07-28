@@ -1,5 +1,6 @@
 ﻿using Assignment01.EntityProviders;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -34,5 +35,15 @@ public class ProductServiceProviders : IProductServiceProviders
 
         return result;
     }
-    #endregion    
+
+    public async Task<bool> AddAsync(Product product) {
+        var url = Routing.BaseUrl + Routing.ProductApi + Routing.Add;
+        var result = await this._httpClient.PostAsJsonAsync(url, product);
+
+        if (result.StatusCode == HttpStatusCode.OK) {
+            return true;    
+        }
+        return false;
+    }
+    #endregion
 }

@@ -1,0 +1,60 @@
+﻿@page "/Product"
+@namespace Assignment01.BlazorWebApp
+@using Assignment01.EntityProviders;
+@using Microsoft.Fast.Components.FluentUI
+
+@if (Role == AppRole.Admin) {
+
+
+    <PageTitle>New Product</PageTitle>
+    <h3>New Product</h3>
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Category
+            </dt>
+            <dd class="col-sm-10">
+                <FluentCombobox Appearance="Appearance.Filled"
+                                TOption="Category"
+                                Items="Categories"
+                                @bind-SelectedOption=SelectedCategory>
+
+                </FluentCombobox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Product Name
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField type="text" placeholder="Product Name" @bind-Value=Product.ProductName></FluentTextField>
+            </dd>
+            <dt class="col-sm-2">
+                Weight
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField type="text" placeholder="Product Weight" @bind-Value=InputWeight></FluentTextField> @WeightUnit
+                <h5 class="text-warning">@WarningInputWeight</h5>
+            </dd>
+            <dt class="col-sm-2">
+                Unit Price
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField type="text" placeholder="Product Price" @bind-Value=InputUnitPrice></FluentTextField> VND
+                <h5 class="text-warning">@WarningInputUnitPrice</h5>
+            </dd>
+            <dt class="col-sm-2">
+                Units In Stock
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField type="text" placeholder="Unit In Stock" @bind-Value=InputUnitInStock></FluentTextField>
+                <h5 class="text-warning">@WarningInputUnitInStock</h5>
+            </dd>
+            @if (Role == AppRole.Admin) {
+                <dt class="col-sm-2">
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="async () =>await AddProductAsync()">Add</FluentButton>
+                </dt>
+            }
+        </dl>
+    </div>
+}

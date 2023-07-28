@@ -1,0 +1,57 @@
+﻿
+@page "/Product/{ProductId:int}"
+@namespace Assignment01.BlazorWebApp
+@using Assignment01.EntityProviders;
+@using Microsoft.Fast.Components.FluentUI
+
+    <PageTitle>Product</PageTitle>
+
+    <h3>Product Detail</h3>
+    @if (Product == null) {
+        <p><em>Loading...</em></p>
+    } else {
+        <div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Category
+                </dt>
+                <dd class="col-sm-10">
+                    @Product.Category.CategoryName
+                </dd>
+                <dt class="col-sm-2">
+                    Product Name
+                </dt>
+                <dd class="col-sm-10">
+                    @Product.ProductName
+                </dd>
+                <dt class="col-sm-2">
+                    Weight
+                </dt>
+                <dd class="col-sm-10">
+                    @Product.Weight
+                </dd>
+                <dt class="col-sm-2">
+                    Unit Price
+                </dt>
+                <dd class="col-sm-10">
+                    @string.Format("{0:n2} VND", Product.UnitPrice)
+                </dd>
+                <dt class="col-sm-2">
+                    Units In Stock
+                </dt>
+                <dd class="col-sm-10">
+                    @Product.UnitsInStock
+                </dd>
+                @if (Role == AppRole.Admin) {
+                    <dt class="col-sm-2">
+                        <FluentButton Appearance="Appearance.Neutral" @onclick="async () =>await UpdateAsync(Product.ProductId)">Update</FluentButton>
+                    </dt>
+                    <dd class="col-sm-10">
+
+                        <FluentButton Appearance="Appearance.Stealth" @onclick="async () =>await DeleteAsync(Product.ProductId)">Delete</FluentButton>
+                    </dd>
+                }
+            </dl>
+        </div>
+
+    }
