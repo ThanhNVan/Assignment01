@@ -47,7 +47,7 @@
                         <td>
                             <FluentButton Appearance="Appearance.Stealth" @onclick="async () =>await DeleteAsync(item.ProductId)">Delete</FluentButton>
 
-                            <FluentButton Appearance="Appearance.Neutral" @onclick="async () =>await UpdateAsync(item.ProductId)">Update</FluentButton>
+                            <FluentButton Appearance="Appearance.Neutral" @onclick="() =>Update(item.ProductId)">Update</FluentButton>
                         </td>
                     }
                 </tr>

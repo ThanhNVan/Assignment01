@@ -19,6 +19,9 @@ public partial class ProductForm
     [Inject]
     private ISessionStorageService SessionStorage { get; set; }
 
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
     private List<Category> Categories { get; set; }
     private Category SelectedCategory { get; set; }
 
@@ -36,8 +39,6 @@ public partial class ProductForm
         }
 
         this.Categories = await this.ServiceContext.Categories.GetListAllAsync();
-
-        StateHasChanged();
            
         StateHasChanged();
     }
@@ -62,7 +63,9 @@ public partial class ProductForm
     }
 
     public async Task DeleteAsync(int productId) {
-
+        var result = await this.ServiceContext.Products.DeleteAsync(productId);
+        StateHasChanged();
+        this.NavigationManager.NavigateTo("/");
     }
     public async Task UpdateAsync(int productId) {
 

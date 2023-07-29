@@ -113,7 +113,7 @@ public partial class ProductPage
 
     #region [ Public Methods -  ]
     public void ProductDetail(int productId) {
-        NavigationManager.NavigateTo($"/Product/{productId}");
+        NavigationManager.NavigateTo($"/Products/{productId}");
     }
     
     public async Task AddProductToCartAsync(int productId) {
@@ -121,13 +121,15 @@ public partial class ProductPage
     }
     
     public async Task DeleteAsync(int productId) {
-
+        var result = await this.ServiceContext.Products.DeleteAsync(productId);
+        StateHasChanged();
+        await this.OnInitializedAsync();
     }
-    public async Task UpdateAsync(int productId) {
-
+    public void Update(int productId) {
+        this.NavigationManager.NavigateTo($"/Products/Update/{productId}");
     }
     public void Add() {
-        this.NavigationManager.NavigateTo("/Product");
+        this.NavigationManager.NavigateTo("/Products/New");
     }
     #endregion
 }

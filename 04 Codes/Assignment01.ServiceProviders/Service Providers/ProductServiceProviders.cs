@@ -45,5 +45,25 @@ public class ProductServiceProviders : IProductServiceProviders
         }
         return false;
     }
+
+    public async Task<bool> DeleteAsync(int productId) {
+        var url = Routing.BaseUrl + Routing.ProductApi + Routing.Delete +  productId.ToString();
+        var result = await this._httpClient.DeleteAsync(url);
+
+        if (result.StatusCode == HttpStatusCode.OK) {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<bool> UpdateAsync(Product product) {
+        var url = Routing.BaseUrl + Routing.ProductApi+ Routing.Update;
+        var result = await  this._httpClient.PutAsJsonAsync<Product>(url, product);
+
+        if (result.StatusCode == HttpStatusCode.OK) {
+            return true;
+        }
+        return false;
+    }
     #endregion
 }

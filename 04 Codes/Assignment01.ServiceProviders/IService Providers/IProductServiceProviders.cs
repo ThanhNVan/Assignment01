@@ -10,4 +10,8 @@ public interface IProductServiceProviders
 
     Task<Product> GetSingleProductByIdAsync(int productId);
     Task<bool> AddAsync(Product product); 
+
+    Task<bool> DeleteAsync(int productId);
+
+    Task<bool> UpdateAsync(Product product);
 }

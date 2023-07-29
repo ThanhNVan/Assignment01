@@ -1,13 +1,14 @@
-﻿@page "/Products/New"
-@namespace Assignment01.BlazorWebApp
+﻿@page "/Products/Update/{ProductId:int}"
+
 @using Assignment01.EntityProviders;
 @using Microsoft.Fast.Components.FluentUI
 
+@namespace Assignment01.BlazorWebApp
+
+<PageTitle>Update Product</PageTitle>
+<h3>Update Product</h3>
+
 @if (Role == AppRole.Admin) {
-
-
-    <PageTitle>New Product</PageTitle>
-    <h3>New Product</h3>
 
     <div>
         <dl class="row">
@@ -18,7 +19,7 @@
                 <FluentCombobox Appearance="Appearance.Filled"
                                 TOption="Category"
                                 Items="Categories"
-                                @bind-SelectedOption=SelectedCategory>
+                @bind-SelectedOption=SelectedCategory>
 
                 </FluentCombobox>
             </dd>
@@ -52,7 +53,7 @@
             </dd>
             @if (Role == AppRole.Admin) {
                 <dt class="col-sm-2">
-                    <FluentButton Appearance="Appearance.Neutral" @onclick="async () =>await AddProductAsync()">Add</FluentButton>
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="async () =>await UpdateProductAsync()">Save</FluentButton>
                 </dt>
             }
         </dl>
