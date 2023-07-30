@@ -1,0 +1,57 @@
+﻿@page "/Members/Update/{MemberId:int}"
+
+@using Microsoft.Fast.Components.FluentUI
+@using Assignment01.EntityProviders
+
+@namespace Assignment01.BlazorWebApp
+
+@if (Role == AppRole.Admin) {
+    <PageTitle>Member</PageTitle>
+    <h3>Member</h3>
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Email Address
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField TextFieldType="TextFieldType.Email" @bind-Value=Member.Email Readonly="true" />
+            </dd>
+            
+            <dt class="col-sm-2">
+                Company Name
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField type="text" @bind-Value=Member.CompanyName />
+            </dd> 
+            
+            <dt class="col-sm-2">
+                City
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField type="text" @bind-Value=Member.City />
+            </dd>
+            
+            <dt class="col-sm-2">
+                Country
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField type="text" @bind-Value=Member.Country />
+            </dd> 
+            
+            <dt class="col-sm-2">
+                Password
+            </dt>
+            <dd class="col-sm-10">
+                <FluentTextField TextFieldType="TextFieldType.Password" @bind-Value=Member.Password />
+                
+            </dd>
+
+        </dl>
+    </div>
+            <FluentButton Appearance="Appearance.Neutral" @onclick="async () =>await UpdateMemberAsync()">Save</FluentButton>
+            <FluentButton Appearance="Appearance.Filled" @onclick="async () =>await UpdateMemberAsync()">See Orders</FluentButton>
+}
+
+
+

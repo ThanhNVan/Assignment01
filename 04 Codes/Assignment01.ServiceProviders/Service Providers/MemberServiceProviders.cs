@@ -1,8 +1,10 @@
 ﻿using Assignment01.EntityProviders;
 using Azure;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +24,14 @@ public class MemberServiceProviders : IMemberServiceProviders
     #endregion
 
     #region [ Methods - CRUD ]
+    public async Task<List<Member>> GetListAllAsync() {
+        var result = default(List<Member>);
 
+        var url = Routing.BaseUrl + Routing.MemberApi + Routing.GetAll;
+        result = await this._httpClient.GetFromJsonAsync<List<Member>>(url);
+
+        return result;
+    }
     #endregion
 
     #region [ Methods - Login ]
@@ -52,6 +61,36 @@ public class MemberServiceProviders : IMemberServiceProviders
             return result;
         }
         return result;
+    }
+    #endregion
+
+    #region [ Methods - CRUD ]
+    public async Task<Member> GetSingleByIdAsync(int memberId) {
+        var result = default(Member);
+        var url = Routing.BaseUrl + Routing.MemberApi + Routing.GetSingle + memberId.ToString();
+
+        result = await this._httpClient.GetFromJsonAsync<Member>(url);  
+
+        return result;
+    }
+
+    public async Task<Member> GetSingleByEmailAsync(string email) {
+        var result = default(Member);
+        var url = Routing.BaseUrl + Routing.MemberApi + Routing.ByMemberId + email;
+
+        result = await this._httpClient.GetFromJsonAsync<Member>(url);
+
+        return result;
+    }
+
+    public async Task<bool> UpdateAsync(Member member) {
+        var url = Routing.BaseUrl + Routing.MemberApi + Routing.Update;
+        var respone = await this._httpClient.PutAsJsonAsync<Member>(url, member);
+
+        if (respone.StatusCode == HttpStatusCode.OK) {
+            return true;
+        }
+        return false;
     }
     #endregion
 

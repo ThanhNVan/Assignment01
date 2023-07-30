@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Blazored.SessionStorage" Version="2.3.0" />
     <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.4.1" />
+    <PackageReference Include="Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter" Version="2.1.4" />
   </ItemGroup>
 
   <ItemGroup>

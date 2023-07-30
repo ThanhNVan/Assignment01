@@ -1,6 +1,41 @@
 ﻿@page "/Orders"
+
+@using Assignment01.EntityProviders;
+@using Microsoft.Fast.Components.FluentUI
+
 @namespace Assignment01.BlazorWebApp
 
 <PageTitle>Orders</PageTitle>
 
-<h3>OrderPage</h3>
+<h3>All Order</h3>
+
+@if (Role == AppRole.Admin) {
+    @if (OrderList == null) {
+        <p><em>Loading...</em></p>
+    } else {
+        <FluentSearch type="text" placeholder="Search by email" @bind-Value=SearchName></FluentSearch>
+
+        <div class="d-grid">
+            <FluentDataGrid RowsData="@OrderList">
+                @if (OrderList.FirstOrDefault().Member == null) {
+                    <PropertyColumn Property="@(x => x.MemberId)" Sortable="true" />
+                } else {
+                    <PropertyColumn Property="@(x => x.Member.Email)" Sortable="true" />
+                }
+                <PropertyColumn Property="@(x => string.Format("{0:n2}", x.Freight))" Sortable="true" />
+                <PropertyColumn Property="@(x => x.OrderDate.ToShortDateString())" Sortable="true" />
+                <PropertyColumn Property="@(x => x.RequiredDate.Value.ToShortDateString())" Sortable="true" />
+                <PropertyColumn Property="@(x => x.ShippedDate.Value.ToShortDateString())" Sortable="true" />
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="() => ViewDetail(context.OrderId)">View Detail</FluentButton>
+                </TemplateColumn>
+
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Stealth" @onclick="() => DeleteAsync(context.OrderId)">Delete</FluentButton>
+                </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+
+        <FluentButton Appearance="Appearance.Hypertext" @onclick="async () => await ReportAsync()" >Create Report</FluentButton>
+    }
+}

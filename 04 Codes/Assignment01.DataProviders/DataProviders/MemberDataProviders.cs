@@ -26,6 +26,20 @@ public class MemberDataProviders : BaseEntityDataProvider<Member, AppDbContext>,
         }
     }
 
+    public async Task<Member> GetSingleByEmailAsync(string email) {
+        var result = default(Member);
+
+        try {
+            using (var context = this.GetContext()) {
+                result = await EntityFrameworkQueryableExtensions.FirstOrDefaultAsync(EntityFrameworkQueryableExtensions.AsNoTracking(context.Set<Member>()), (Member x) => x.Email == email);
+                return result;
+            }
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return result;
+        }
+    }
+
     public async Task<Member> LoginAsync(string email, string password) {
         var result = default(Member);
         try {

@@ -21,6 +21,13 @@ public class MemberLogicProviders : BaseEntityLogicProvider<Member, IMemberDataP
         return await this._dataProvider.GetSingleByIdAsync(id);
     }
 
+    public async Task<Member> GetSingleByEmailAsync(string email) {
+        if (email.IsNullOrEmpty()) {
+            return null;
+        }
+        return await this._dataProvider.GetSingleByEmailAsync(email);
+    }
+
     public async Task<Member> LoginAsync(string email, string password) {
         if (email.IsNullOrEmpty() || password.IsNullOrEmpty()) {
             return null;

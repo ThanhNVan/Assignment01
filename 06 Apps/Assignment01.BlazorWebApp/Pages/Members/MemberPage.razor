@@ -1,6 +1,35 @@
 ﻿@page "/Members"
+
+@using Microsoft.Fast.Components.FluentUI
+@using Assignment01.EntityProviders
+
 @namespace Assignment01.BlazorWebApp
 
 <PageTitle>Members</PageTitle>
+<h3>All Members</h3>
 
-<h3>MemberPage</h3>
+@if (Role == AppRole.Admin) {
+    @if (MemberList == null) {
+        <p><em>Loading...</em></p>
+    } else {
+        <FluentSearch type="text" placeholder="Search by name" @bind-Value=SearchEmail></FluentSearch>
+        <div class="d-grid">
+            <FluentDataGrid RowsData="@MemberList" >
+                <PropertyColumn Property="@(x => x.Email)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.CompanyName)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.City)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Country)" Sortable="true" />
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Stealth" @onclick="() => Delete(context.MemberId)" >Delete</FluentButton>
+                </TemplateColumn>
+                
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="() => Update(context.MemberId)" >Update</FluentButton>
+                </TemplateColumn>
+            </FluentDataGrid>
+
+        </div>
+    }
+} else {
+
+}

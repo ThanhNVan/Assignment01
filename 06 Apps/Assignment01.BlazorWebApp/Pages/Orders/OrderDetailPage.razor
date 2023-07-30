@@ -1,0 +1,88 @@
+﻿@page "/Orders/Detail/{OrderId:int}"
+
+@using Assignment01.EntityProviders;
+@using Microsoft.Fast.Components.FluentUI
+
+@namespace Assignment01.BlazorWebApp
+
+@if (Role == AppRole.Admin) {
+    <PageTitle>Order</PageTitle>
+    <h3>Order Detail</h3>
+    @if (Order == null) {
+        <p><em>Loading...</em></p>
+    } else {
+        <div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Email Address
+                </dt>
+                <dd class="col-sm-10">
+                    <FluentTextField TextFieldType="TextFieldType.Email" @bind-Value=Member.Email Readonly="true" />
+                </dd>
+
+                <dt class="col-sm-2">
+                    Company Name
+                </dt>
+                <dd class="col-sm-10">
+                    <FluentTextField type="text" @bind-Value=Member.CompanyName Readonly="true" />
+                </dd>
+
+                <dt class="col-sm-2">
+                    City
+                </dt>
+                <dd class="col-sm-10">
+                    <FluentTextField type="text" @bind-Value=Member.City Readonly="true" />
+                </dd>
+
+                <dt class="col-sm-2">
+                    Country
+                </dt>
+                <dd class="col-sm-10">
+                    <FluentTextField type="text" @bind-Value=Member.Country Readonly="true" />
+                </dd>
+
+                <dt class="col-sm-2">
+                    Ordered Date
+                </dt>
+                <dd class="col-sm-10">
+                    <FluentTextField type="date" @bind-Value=@DisplayOrderedDate Readonly="true" />
+                </dd>
+                @if (Order.ShippedDate != null) {
+
+                    <dt class="col-sm-2">
+                        Shipped Date
+                    </dt>
+                    <dd class="col-sm-10">
+                        <FluentTextField type="text" @bind-Value=DisplayShippedDate Readonly="true" />
+                    </dd>
+                }
+                @if (Order.RequiredDate != null) {
+                    <dt class="col-sm-2">
+                        Required Date
+                    </dt>
+                    <dd class="col-sm-10">
+                        <FluentTextField type="text" @bind-Value=DisplayRequiredDate Readonly="true" />
+                    </dd>
+                }
+                <dt class="col-sm-2">
+                    Frieght 
+                </dt>
+                <dd class="col-sm-10">
+                    <FluentTextField type="text" @bind-Value=DisplayFreight Readonly="true" />
+                </dd>
+            </dl>
+        </div>
+
+        <div class="d-grid">
+            <FluentDataGrid RowsData="@OrderDetailList">
+                <PropertyColumn Property="@(x => x.Product.ProductName)" />
+                <PropertyColumn Property="@(x => x.Quantity)" />
+                <PropertyColumn Property="@(x => string.Format("{0:n2} VND", x.UnitPrice))" />
+                <PropertyColumn Property="@(x => x.Discount + " %")" />
+            </FluentDataGrid>
+        </div>
+    }
+} else {
+
+}
+

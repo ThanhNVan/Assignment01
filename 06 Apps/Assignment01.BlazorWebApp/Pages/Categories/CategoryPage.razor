@@ -1,5 +1,25 @@
 ﻿@page "/Categories"
+@using Assignment01.EntityProviders;
+@using Microsoft.Fast.Components.FluentUI
+
 @namespace Assignment01.BlazorWebApp
 
 <PageTitle>Categories</PageTitle>
-<h3>CategoryPage</h3>
+<h3>All Category</h3>
+
+@if (Role == AppRole.Admin) {
+    @if (CategoryList == null) {
+        <p><em>Loading...</em></p>
+    } else {
+        <FluentSearch type="text" placeholder="Search by name" @bind-Value=SearchName></FluentSearch>
+
+        <div class="d-grid">
+            <FluentDataGrid RowsData="@CategoryList">
+                <PropertyColumn Property="@(x => x.CategoryName)" Sortable="true" />
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="() => Update(context.CategoryId)">Update</FluentButton>
+                </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+    }
+}

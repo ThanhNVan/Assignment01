@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Assignment01.BlazorWebApp;
 
-public partial class CategoryPage
+public partial class OrderPage
 {
     #region [ Fields ]
     private string _searchEmail;
-    private IEnumerable<Category> _categoryList;
+    private IEnumerable<Order> _orderList;
     #endregion
 
     #region [ Properties ]
@@ -29,7 +29,7 @@ public partial class CategoryPage
 
     private string Role { get; set; } = string.Empty;
 
-    public IQueryable<Category> CategoryList { get; set; }
+    public IQueryable<Order> OrderList { get; set; }
 
     public string SearchName {
         get => this._searchEmail;
@@ -50,30 +50,40 @@ public partial class CategoryPage
         StateHasChanged();
 
         if (!Role.IsNullOrEmpty()) {
-            this._categoryList = await this.ServiceContext.Categories.GetListAllAsync();
+            this._orderList = await this.ServiceContext.Orders.GetListAllAsync();
 
-            this.CategoryList = this._categoryList.AsQueryable();
+            this.OrderList = this._orderList.AsQueryable();
         }
+        await this.FillMembers(this.OrderList);
         StateHasChanged();
     }
     #endregion
 
     #region [ Public Methods -  ]
-    public void Update(int categoryId) {
-        this.NavigationManager.NavigateTo($"/Categories/Update/{categoryId}");
+    public void ViewDetail(int orderId) {
+        this.NavigationManager.NavigateTo($"/Orders/Detail/{orderId}");
     }
 
-    public void Delete(int cateogryId) {
-        var aa = cateogryId;
+    public async Task DeleteAsync(int orderid) {
+        var aa = orderid;
+    }
+
+    public async Task ReportAsync() {
+
     }
     #endregion
 
     #region [ Private Methods -  ]
     private void Search() {
 
-        this.CategoryList = this._categoryList.Where(x => x.CategoryName.Contains(this.SearchName, StringComparison.InvariantCultureIgnoreCase)).AsQueryable();
+        this.OrderList = this._orderList.Where(x => x.Member.Email.Contains(this.SearchName, StringComparison.InvariantCultureIgnoreCase)).AsQueryable();
 
     }
 
+    private async Task FillMembers(IEnumerable<Order> orders) {
+        foreach (var item in orders) {
+            item.Member = await this.ServiceContext.Members.GetSingleByIdAsync(item.MemberId.Value);
+        }
+    }
     #endregion
 }

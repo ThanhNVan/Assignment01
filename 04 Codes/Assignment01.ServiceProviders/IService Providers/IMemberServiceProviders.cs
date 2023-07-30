@@ -13,4 +13,13 @@ public interface IMemberServiceProviders
     Task<string> LoginAdminAsync(string email, string password);
     Task<Member> LoginMemberAsync(string email, string password);
     #endregion
+
+    #region [ Methods - CRUD ]
+    Task<List<Member>> GetListAllAsync();
+
+    Task<Member> GetSingleByIdAsync(int memberId);
+
+    Task<Member> GetSingleByEmailAsync(string email);
+    Task<bool> UpdateAsync(Member member);
+    #endregion
 }

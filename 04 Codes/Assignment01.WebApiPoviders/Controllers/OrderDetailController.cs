@@ -138,9 +138,9 @@ public class OrderDetailController : ControllerBase {
 
     #region [ Methods -  ]
     [HttpGet("ByOrderId/{orderId}")]
-    public async Task<ActionResult<List<OrderDetail>>> GetListByOderId(int orderId) {
+    public async Task<ActionResult<List<OrderDetail>>> GetListByOrderIdAsync(int orderId) {
         try {
-            var dbResult = await this._logicContext.OrderDetail.GetListByOrderId(orderId);
+            var dbResult = await this._logicContext.OrderDetail.GetListByOrderIdAsync(orderId);
 
             return Ok(dbResult);
         } catch (ArgumentNullException ex) {

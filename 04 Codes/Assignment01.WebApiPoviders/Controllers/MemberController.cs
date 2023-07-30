@@ -88,6 +88,24 @@ public class MemberController : ControllerBase
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+    
+    [HttpGet("ByEmail/{email}")]
+    public async Task<ActionResult<Member>> GetSingleByEmailAsync(string email) {
+        try {
+            var result = await this._logicContext.Member.GetSingleByEmailAsync(email);
+            if (result == null) {
+                return BadRequest("Empty");
+            }
+
+            return Ok(result);
+        } catch (ArgumentNullException ex) {
+            this._logger.LogError(ex.Message);
+            return BadRequest();
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
 
     [HttpPut("update")]
     public async Task<ActionResult<bool>> UpdateAsync([FromBody] Member Member) {

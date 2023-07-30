@@ -4,6 +4,8 @@ using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Fast.Components.FluentUI;
+using Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter;
 
 namespace Assignment01.BlazorWebApp;
 
@@ -14,6 +16,8 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddHttpClient();
+        builder.Services.AddFluentUIComponents();
+        //builder.Services.AddFluentUIDataGridEntityFrameworkAdapter();
         builder.Services.AddBlazoredSessionStorage();
         builder.Services.AddServices();
         builder.Services.AddRazorPages();

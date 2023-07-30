@@ -7,5 +7,5 @@ public interface IOrderDetailLogicProviders :  IBaseEntityLogicProvider<OrderDet
 {
     Task<OrderDetail> GetSingleByOrderIdAndProductIdAsync(int orderId, int productId);
 
-    Task<List<OrderDetail>> GetListByOrderId(int orderId);
+    Task<List<OrderDetail>> GetListByOrderIdAsync(int orderId);
 }

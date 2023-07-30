@@ -20,7 +20,7 @@ public class OrderDetailLogicProviders : BaseEntityLogicProvider<OrderDetail, IO
         return await this._dataProvider.GetSingleByOrderIdAndProductIdAsync(orderId, productId);
     }
 
-    public async Task<List<OrderDetail>> GetListByOrderId(int orderId) {
+    public async Task<List<OrderDetail>> GetListByOrderIdAsync(int orderId) {
         var result = default(List<OrderDetail>);
         
         if (orderId == null) {
