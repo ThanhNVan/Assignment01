@@ -116,7 +116,7 @@ public partial class ProductPage
         NavigationManager.NavigateTo($"/Products/{productId}");
     }
     
-    public async Task AddProductToCartAsync(int productId) {
+    public void AddProductToCart(int productId) {
 
     }
     

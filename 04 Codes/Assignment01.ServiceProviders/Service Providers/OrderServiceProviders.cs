@@ -58,5 +58,20 @@ public class OrderServiceProviders : IOrderServiceProviders
 
         return result;
     }
+
+    public async Task<Order> AddOrderAsync(Order order) {
+        var result = default(Order);
+
+        var url = Routing.BaseUrl + Routing.OrderApi + Routing.Add;
+
+        var response = await this._httpClient.PostAsJsonAsync(url, order);
+
+        if (response.StatusCode == HttpStatusCode.OK) {
+            var getUrl =  Routing.BaseUrl + Routing.OrderApi + Routing.GetSingle + order.OrderId;
+            result = await this._httpClient.GetFromJsonAsync<Order>(getUrl);    
+        }
+
+        return result;
+    }
     #endregion
 }

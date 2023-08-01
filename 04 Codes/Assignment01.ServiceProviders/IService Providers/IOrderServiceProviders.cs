@@ -12,4 +12,6 @@ public interface IOrderServiceProviders
     Task<List<Order>> GetListAllAsync(); 
 
     Task<IEnumerable<Order>> GetListByDateRangeAsync(DateTime startDate, DateTime endDate);
+
+    Task<Order> AddOrderAsync(Order order);
 }

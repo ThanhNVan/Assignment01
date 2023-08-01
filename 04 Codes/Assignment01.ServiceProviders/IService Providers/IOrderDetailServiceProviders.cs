@@ -12,4 +12,6 @@ public interface IOrderDetailServiceProviders
     Task<IEnumerable<OrderDetail>> GetListByOrderIdAsync(int orderId); 
 
     Task<IEnumerable<OrderDetail>> GetListByReportAsync(DateTime startDate, DateTime endDate);
+    
+    Task<bool> AddAsync(OrderDetail orderDetail);
 }

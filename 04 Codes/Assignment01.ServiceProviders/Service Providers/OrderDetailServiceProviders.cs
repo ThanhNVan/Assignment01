@@ -46,5 +46,15 @@ public class OrderDetailServiceProviders : IOrderDetailServiceProviders
 
         return result;
     }
+
+    public async Task<bool> AddAsync(OrderDetail orderDetail) {
+        var url = Routing.BaseUrl + Routing.OrderDetailApi + Routing.Add;
+        var response = await this._httpClient.PostAsJsonAsync(url, orderDetail);
+
+        if (response.StatusCode == HttpStatusCode.OK) {
+            return true;
+        }
+        return false;
+    }
     #endregion
 }

@@ -39,7 +39,7 @@ public partial class Index
             await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Member);
             await SessionStorage.SetItemAsStringAsync("Email", memberResponse.Email);
             await SessionStorage.SetItemAsync(AppRole.MemberId, memberResponse.MemberId);
-            NavigationManager.NavigateTo($"Products", true);
+            NavigationManager.NavigateTo($"/Products/Member", true);
             return;
         }
 

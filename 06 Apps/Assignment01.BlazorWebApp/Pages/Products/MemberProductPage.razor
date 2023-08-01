@@ -1,0 +1,39 @@
+﻿@page "/Products/Member"
+@namespace Assignment01.BlazorWebApp
+@using Microsoft.Fast.Components.FluentUI
+@using Assignment01.EntityProviders
+
+<PageTitle>Products</PageTitle>
+<h3>All Products</h3>
+
+@if (Role == AppRole.Member) {
+    @if (DisplayCartRow == null) {
+        <p><em>Loading...</em></p>
+    } else {
+        <FluentSearch type="text" placeholder="Search by name" @bind-Value=SearchName></FluentSearch>
+        <FluentSearch type="text" placeholder="From Price" @bind-Value=SearchFromPrice></FluentSearch>
+        <FluentSearch type="text" placeholder="To Price" @bind-Value=SearchToPrice></FluentSearch>
+        <br />
+        <div class="d-grid">
+            <FluentDataGrid RowsData="@DisplayCartRow">
+                <PropertyColumn Property="@(x => x.Product.ProductName)" Sortable="true" Title="Name"/>
+                <PropertyColumn Property="@(x => x.Product.Category.CategoryName)" Sortable="true" Title="Category" />
+                <PropertyColumn Property="@(x => x.Product.UnitPrice)" Sortable="true" Title="Price" />
+                <PropertyColumn Property="@(x => x.Product.UnitsInStock)" Sortable="true" Title="In Stock" />
+                <PropertyColumn Property="@(x => x.Quantity)" Sortable="true" Title="In Cart" />
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="() => AddToCart(context)">Add To Cart</FluentButton>
+                </TemplateColumn>
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="() => RemoveFromCart(context)">Remove From Cart</FluentButton>
+                </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+
+        <br />
+        <div>
+            <FluentButton Appearance="Appearance.Accent" @onclick="async () => await CheckoutAsync()">Check out</FluentButton>
+        </div>
+
+    }
+}

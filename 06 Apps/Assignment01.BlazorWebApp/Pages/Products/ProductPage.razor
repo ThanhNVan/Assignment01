@@ -24,6 +24,7 @@
             </tr>
         </thead>
         <tbody>
+
             @foreach (var item in ProductList) {
                 <tr>
                     @if (item.Category == null) {
@@ -38,11 +39,7 @@
                     <td>
                         <FluentButton Appearance="Appearance.Filled" @onclick="() => ProductDetail(item.ProductId)">Detail</FluentButton>
                     </td>
-                    @if (Role == AppRole.Member) {
-                        <td>
-                            <FluentButton Appearance="Appearance.Accent" @onclick="async () =>await AddProductToCartAsync(item.ProductId)">Add To Cart</FluentButton>
-                        </td>
-                    }
+
                     @if (Role == AppRole.Admin) {
                         <td>
                             <FluentButton Appearance="Appearance.Stealth" @onclick="async () =>await DeleteAsync(item.ProductId)">Delete</FluentButton>
@@ -60,9 +57,5 @@
      </div>
     }
 
-    @if (Role == AppRole.Member) {
-        <div>
-            <FluentButton Appearance="Appearance.Accent" @onclick="() => Add()">Check out</FluentButton>
-        </div>
-    }
+
 }

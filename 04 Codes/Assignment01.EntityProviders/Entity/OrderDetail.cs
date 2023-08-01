@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Assignment01.EntityProviders;
 
@@ -16,9 +14,9 @@ public partial class OrderDetail
 
     public double Discount { get; set; }
 
-    [JsonIgnore]
-    public virtual Order Order { get; set; } = null!;
+    [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+    public virtual Order? Order { get; set; }
 
-    [JsonIgnore]
-    public virtual Product Product { get; set; } = null!;
+    [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
+    public virtual Product? Product { get; set; }
 }
