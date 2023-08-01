@@ -120,6 +120,10 @@ public partial class ProductPage
 
     }
     
+    public async Task CheckOutAsync() {
+
+    }
+    
     public async Task DeleteAsync(int productId) {
         var result = await this.ServiceContext.Products.DeleteAsync(productId);
         StateHasChanged();

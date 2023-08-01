@@ -7,8 +7,10 @@ namespace Assignment01.LogicProviders;
 
 public class OrderDetailLogicProviders : BaseEntityLogicProvider<OrderDetail, IOrderDetailDataProviders>, IOrderDetailLogicProviders
 {
+
     #region [ CTor ]
     public OrderDetailLogicProviders(ILogger<BaseEntityLogicProvider<OrderDetail, IOrderDetailDataProviders>> logger, IOrderDetailDataProviders dataProvider) : base(logger, dataProvider) {
+
     }
     #endregion
 
@@ -28,6 +30,16 @@ public class OrderDetailLogicProviders : BaseEntityLogicProvider<OrderDetail, IO
         }
 
         return await this._dataProvider.GetListByOrderId(orderId);
+    }
+
+    public async Task<List<OrderDetail>> GetListByOrderListAsync(List<Order> orders) {
+        var result = new List<OrderDetail>();
+        foreach (var order in orders) {
+            var dbResults = await this.GetListByOrderIdAsync(order.OrderId);
+            result.AddRange(dbResults);
+        }
+
+        return result;
     }
     #endregion
 }

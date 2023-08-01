@@ -33,5 +33,9 @@ public class OrderLogicProviders : BaseEntityLogicProvider<Order, IOrderDataProv
 
         return await this._dataProvider.GetListByMemberIdAsync(memberId);  
     }
+
+    public async Task<List<Order>> GetListByDateRangeAsync(DateTime startDate, DateTime endDate) {
+        return await this._dataProvider.GetListByDateRangeAsync(startDate, endDate);
+    }
     #endregion
 }

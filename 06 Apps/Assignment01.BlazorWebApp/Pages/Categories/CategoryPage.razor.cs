@@ -65,6 +65,10 @@ public partial class CategoryPage
 
     public void Delete(int cateogryId) {
         var aa = cateogryId;
+    } 
+    
+    public void Detail(int cateogryId) {
+        var aa = cateogryId;
     }
     #endregion
 

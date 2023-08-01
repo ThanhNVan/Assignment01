@@ -6,5 +6,6 @@ public static class AppRole
 	public static string Admin = "Admin";
 	public static string Member = "Member";
 	public static string Role = "Role";
+	public static string MemberId = "MemberId";
 	#endregion
 }

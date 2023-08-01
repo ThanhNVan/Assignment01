@@ -7,7 +7,7 @@
 
 <PageTitle>Orders</PageTitle>
 
-<h3>All Order</h3>
+<h3>All Orders</h3>
 
 @if (Role == AppRole.Admin) {
     @if (OrderList == null) {
@@ -20,12 +20,12 @@
                 @if (OrderList.FirstOrDefault().Member == null) {
                     <PropertyColumn Property="@(x => x.MemberId)" Sortable="true" />
                 } else {
-                    <PropertyColumn Property="@(x => x.Member.Email)" Sortable="true" />
+                    <PropertyColumn Property="@(x => x.Member.Email)" Sortable="true" Title="Email" />
                 }
-                <PropertyColumn Property="@(x => string.Format("{0:n2}", x.Freight))" Sortable="true" />
-                <PropertyColumn Property="@(x => x.OrderDate.ToShortDateString())" Sortable="true" />
-                <PropertyColumn Property="@(x => x.RequiredDate.Value.ToShortDateString())" Sortable="true" />
-                <PropertyColumn Property="@(x => x.ShippedDate.Value.ToShortDateString())" Sortable="true" />
+                <PropertyColumn Property="@(x => string.Format("{0:n2}", x.Freight))" Sortable="true" Title="Freight"/>
+                <PropertyColumn Property="@(x => x.OrderDate.ToShortDateString())" Sortable="true" Title="Order Date" />
+                <PropertyColumn Property="@(x => x.RequiredDate.Value.ToShortDateString())" Sortable="true" Title="Required Date" />
+                <PropertyColumn Property="@(x => x.ShippedDate.Value.ToShortDateString())" Sortable="true" Title="Shipped Date" />
                 <TemplateColumn>
                     <FluentButton Appearance="Appearance.Neutral" @onclick="() => ViewDetail(context.OrderId)">View Detail</FluentButton>
                 </TemplateColumn>
@@ -35,7 +35,7 @@
                 </TemplateColumn>
             </FluentDataGrid>
         </div>
-
+        <br />
         <FluentButton Appearance="Appearance.Hypertext" @onclick="async () => await ReportAsync()" >Create Report</FluentButton>
     }
 }

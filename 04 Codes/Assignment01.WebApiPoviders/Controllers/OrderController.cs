@@ -147,5 +147,20 @@ public class OrderController : ControllerBase
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+
+    [HttpPost("Report")]
+    public async Task<ActionResult<List<Order>>> GetListByReportAsync([FromBody] List<DateTime> dateTimes) {
+        try {
+            var dbOrderList = await this._logicContext.Order.GetListByDateRangeAsync(dateTimes.FirstOrDefault(), dateTimes.LastOrDefault());
+
+            return Ok(dbOrderList);
+        } catch (ArgumentNullException ex) {
+            this._logger.LogError(ex.Message);
+            return BadRequest();
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
     #endregion
 }

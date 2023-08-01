@@ -38,13 +38,17 @@ public partial class Index
         if (memberResponse!= null) {
             await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Member);
             await SessionStorage.SetItemAsStringAsync("Email", memberResponse.Email);
-            await SessionStorage.SetItemAsync("MemberId", memberResponse.MemberId);
+            await SessionStorage.SetItemAsync(AppRole.MemberId, memberResponse.MemberId);
             NavigationManager.NavigateTo($"Products", true);
             return;
         }
 
         this.Warning = "Login Error, Please try again";
         return;
+    }
+
+    public async Task RegisterAsync() {
+        this.NavigationManager.NavigateTo("/Register");
     }
     #endregion
 }

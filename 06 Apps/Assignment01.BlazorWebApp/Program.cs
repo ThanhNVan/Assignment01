@@ -1,11 +1,9 @@
-using Assignment01.BlazorWebApp.Data;
-using Assignment01.ServiceProviders;
+﻿using Assignment01.ServiceProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Fast.Components.FluentUI;
-using Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter;
 
 namespace Assignment01.BlazorWebApp;
 
@@ -22,7 +20,6 @@ public class Program
         builder.Services.AddServices();
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
-        builder.Services.AddSingleton<WeatherForecastService>();
 
         var app = builder.Build();
 

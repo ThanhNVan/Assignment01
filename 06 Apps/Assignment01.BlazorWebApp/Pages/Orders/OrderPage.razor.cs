@@ -69,7 +69,7 @@ public partial class OrderPage
     }
 
     public async Task ReportAsync() {
-
+        this.NavigationManager.NavigateTo($"/Orders/Report");
     }
     #endregion
 

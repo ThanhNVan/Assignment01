@@ -1,0 +1,58 @@
+﻿@page "/Register"
+@using Assignment01.EntityProviders;
+@using Microsoft.Fast.Components.FluentUI
+
+@namespace Assignment01.BlazorWebApp
+
+<PageTitle>Register</PageTitle>
+<h3>Register Page</h3>
+
+<dt class="col-sm-2">
+    Email Address
+</dt>
+<dd class="col-sm-10">
+    <FluentTextField TextFieldType="TextFieldType.Email" @bind-Value=DisplayEmail />
+</dd>
+<dt>
+    <FluentButton Appearance="Appearance.Filled" @onclick="async () => await CheckEmailAsync()" >Check Email Address</FluentButton>
+    <p><em>@EmailWarning</em></p>
+</dt>
+
+<dt class="col-sm-2">
+    Company Name
+</dt>
+<dd class="col-sm-10">
+    <FluentTextField type="text" @bind-Value=DisplayCompanyName />
+</dd>
+
+<dt class="col-sm-2">
+    City
+</dt>
+<dd class="col-sm-10">
+    <FluentTextField type="text" @bind-Value=DisplayCity />
+</dd>
+
+<dt class="col-sm-2">
+    Country
+</dt>
+<dd class="col-sm-10">
+    <FluentTextField type="text" @bind-Value=DisplayCountry />
+</dd>
+
+<dt class="col-sm-2">
+    Password
+</dt>
+<dd class="col-sm-10">
+    <FluentTextField TextFieldType="TextFieldType.Password" @bind-Value=DisplayPassword />
+</dd>
+
+<dt class="col-sm-2">
+    Re - Password
+</dt>
+<dd class="col-sm-10">
+    <FluentTextField TextFieldType="TextFieldType.Password" @bind-Value=DisplayRePassword />
+    <p><em>@PasswordWarning</em></p>
+</dd>
+<dt>
+    <FluentButton Appearance="Appearance.Filled" @onclick="async () => await RegisterAsync()">Register</FluentButton>
+</dt>

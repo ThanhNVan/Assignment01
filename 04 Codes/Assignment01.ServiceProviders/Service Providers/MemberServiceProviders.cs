@@ -76,18 +76,30 @@ public class MemberServiceProviders : IMemberServiceProviders
 
     public async Task<Member> GetSingleByEmailAsync(string email) {
         var result = default(Member);
-        var url = Routing.BaseUrl + Routing.MemberApi + Routing.ByMemberId + email;
+        var url = Routing.BaseUrl + Routing.MemberApi + Routing.ByEmail + email;
 
-        result = await this._httpClient.GetFromJsonAsync<Member>(url);
-
+        var response = await this._httpClient.GetAsync(url);
+        if (response.StatusCode == HttpStatusCode.OK) {
+            result = await JsonConvert.DeserializeObjectAsync<Member>(await response.Content.ReadAsStringAsync());
+        }
         return result;
     }
 
     public async Task<bool> UpdateAsync(Member member) {
         var url = Routing.BaseUrl + Routing.MemberApi + Routing.Update;
-        var respone = await this._httpClient.PutAsJsonAsync<Member>(url, member);
+        var response = await this._httpClient.PutAsJsonAsync<Member>(url, member);
 
-        if (respone.StatusCode == HttpStatusCode.OK) {
+        if (response.StatusCode == HttpStatusCode.OK) {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<bool> AddAsync(Member member) {
+        var url = Routing.BaseUrl + Routing.MemberApi + Routing.Add;
+        var response = await this._httpClient.PostAsJsonAsync<Member>(url, member);
+
+        if (response.StatusCode == HttpStatusCode.OK) {
             return true;
         }
         return false;

@@ -21,5 +21,7 @@ public interface IMemberServiceProviders
 
     Task<Member> GetSingleByEmailAsync(string email);
     Task<bool> UpdateAsync(Member member);
+    
+    Task<bool> AddAsync(Member member);
     #endregion
 }

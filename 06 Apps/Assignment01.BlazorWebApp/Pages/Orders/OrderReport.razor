@@ -1,0 +1,58 @@
+﻿@page "/Orders/Report"
+
+@using Microsoft.Fast.Components.FluentUI
+@using Assignment01.EntityProviders
+
+@namespace Assignment01.BlazorWebApp
+
+@if (Role == AppRole.Admin) {
+    <PageTitle>Report</PageTitle>
+    <h3>Report</h3>
+
+    <label Required=true>Select start date: </label>
+    <input type="date" @bind="StartDate">
+    <br />
+    <br />
+    <label Required=true>Select end date:   </label>
+    <input type="date" @bind="EndDate">
+    <br />
+    <br />
+    <FluentButton @onclick="async ()=> await GenerateReportAsync()">Generate Report</FluentButton>
+    <br />
+    <br />
+    if (this.Orders != null) {
+        <div class="d-grid">
+            <p><em>Orders</em></p>
+            <FluentDataGrid RowsData="@Orders">
+                @if (Orders.FirstOrDefault().Member == null) {
+                    <PropertyColumn Property="@(x => x.MemberId)" Sortable="true" />
+                } else {
+                    <PropertyColumn Property="@(x => x.Member.Email)" Sortable="true" Title="Email" />
+                }
+                <PropertyColumn Property="@(x => string.Format("{0:n2}", x.Freight))" Sortable="true" Title="Freight" />
+                <PropertyColumn Property="@(x => x.OrderDate.ToShortDateString())" Sortable="true" Title="Order Date" />
+                <PropertyColumn Property="@(x => x.RequiredDate.Value.ToShortDateString())" Sortable="true" Title="Required Date" />
+                <PropertyColumn Property="@(x => x.ShippedDate.Value.ToShortDateString())" Sortable="true" Title="Shipped Date" />
+                <TemplateColumn>
+                    <FluentButton Appearance="Appearance.Neutral" @onclick="() => ViewDetail(context.OrderId)">View Detail</FluentButton>
+                </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+
+        <br/>
+        <br/>
+    }
+
+    if (this.ReportRows != null) {
+        <div class="d-grid">
+            <p><em>Products</em></p>
+            <FluentDataGrid RowsData="@ReportRows">
+                <PropertyColumn Property="@(x => x.Product.ProductName)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Quantity)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.TotalPrice)" Sortable="true" />
+            </FluentDataGrid>
+        </div>
+        <br />
+        <FluentTextField @bind-Value=Total Readonly=true />
+    }
+}

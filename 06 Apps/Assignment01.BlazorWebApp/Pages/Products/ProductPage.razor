@@ -59,4 +59,10 @@
             <FluentButton Appearance="Appearance.Accent" @onclick="() => Add()">Add New Product</FluentButton>
      </div>
     }
+
+    @if (Role == AppRole.Member) {
+        <div>
+            <FluentButton Appearance="Appearance.Accent" @onclick="() => Add()">Check out</FluentButton>
+        </div>
+    }
 }

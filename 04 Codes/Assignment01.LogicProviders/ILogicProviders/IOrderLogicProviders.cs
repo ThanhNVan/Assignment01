@@ -8,4 +8,6 @@ public interface IOrderLogicProviders : IBaseEntityLogicProvider<Order>
     Task<Order> GetSingleByIdAsync(int id);
 
     Task<List<Order>> GetListByMemberIdAsync(int memberId);
+    
+    Task<List<Order>> GetListByDateRangeAsync(DateTime startDate, DateTime endDate);
 }

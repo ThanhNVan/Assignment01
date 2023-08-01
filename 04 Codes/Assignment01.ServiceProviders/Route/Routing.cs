@@ -31,5 +31,6 @@ public static class Routing
 	public static string ByMemberId = "/ByMemberId/";
 	public static string ByOrderId = "/ByOrderId/";
 	public static string ByEmail = "/ByEmail/";
+	public static string Report = "/Report/";
 	#endregion
 }

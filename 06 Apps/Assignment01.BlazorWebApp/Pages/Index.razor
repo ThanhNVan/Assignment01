@@ -12,11 +12,11 @@
             <table border="0" cellpadding="2" cellspacing="2">
                 <tr>
 
-                    <td><FluentTextField type="text" placeholder="Email Address" @bind-Value=Email></FluentTextField></td>
+                    <td><FluentTextField TextFieldType="TextFieldType.Email" placeholder="Email Address" @bind-Value=Email></FluentTextField></td>
 
                 </tr>
                 <tr>
-                    <td><FluentTextField type="password" placeholder="Password" @bind-Value=Password></FluentTextField></td>
+                    <td><FluentTextField TextFieldType="TextFieldType.Password" placeholder="Password" @bind-Value=Password></FluentTextField></td>
                 </tr>
 
                 <tr>
@@ -27,7 +27,8 @@
 
                 <tr>
                     <td>
-                        <FluentButton @onclick="LoginAsync">Login</FluentButton>
+                        <FluentButton @onclick="async () => await LoginAsync()" Appearance="Appearance.Outline">Login</FluentButton>
+                        <FluentButton @onclick="RegisterAsync" Appearance="Appearance.Filled">Register</FluentButton>
                     </td>
                 </tr>
 
