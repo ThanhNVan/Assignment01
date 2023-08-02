@@ -29,6 +29,13 @@ public class ProductServiceProviders : IProductServiceProviders
         return result;
     }
 
+    public async Task<IEnumerable<Product>> GetListByCategoryIdAsync(int categoryId) {
+        var url = Routing.BaseUrl + Routing.ProductApi + Routing.ByCategoryId + categoryId.ToString();
+        var result = await this._httpClient.GetFromJsonAsync<IEnumerable<Product>>(url);
+
+        return result;
+    }
+
     public async Task<Product> GetSingleProductByIdAsync(int productId) {
         var url = Routing.BaseUrl + Routing.ProductApi + Routing.GetSingle + productId.ToString();
         var result = await this._httpClient.GetFromJsonAsync<Product>(url);

@@ -1,0 +1,28 @@
+﻿@page "/Categories/Detail/{CategoryId:int}"
+@using Microsoft.Fast.Components.FluentUI
+@using Assignment01.EntityProviders
+
+@namespace Assignment01.BlazorWebApp
+
+<PageTitle>Category</PageTitle>
+@if (this.Category == null) {
+    <p><em>Loading...</em></p>
+} else {
+
+    <h3>Category: @this.Category.CategoryName</h3>
+
+    <div class="d-grid">
+        <FluentDataGrid RowsData="@ProductList">
+            <PropertyColumn Property="@(x => x.ProductName)" Sortable="true" Title="Name"/>
+            <PropertyColumn Property="@(x => x.UnitPrice)" Sortable="true" Title="Price" />
+            <PropertyColumn Property="@(x => x.Weight)" Sortable="true" Title="Weight" />
+            <PropertyColumn Property="@(x => x.UnitsInStock)" Sortable="true" Title="Stock" />
+            <TemplateColumn>
+                <FluentButton Appearance="Appearance.Neutral" @onclick="() => Detail(context.ProductId)">Detail</FluentButton>
+            </TemplateColumn>
+        </FluentDataGrid>
+
+    </div>
+}
+
+

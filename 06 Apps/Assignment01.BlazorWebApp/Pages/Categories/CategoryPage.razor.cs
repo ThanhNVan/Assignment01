@@ -67,8 +67,8 @@ public partial class CategoryPage
         var aa = cateogryId;
     } 
     
-    public void Detail(int cateogryId) {
-        var aa = cateogryId;
+    public void Detail(int categoryId) {
+        this.NavigationManager.NavigateTo($"/Categories/Detail/{categoryId}");
     }
     #endregion
 

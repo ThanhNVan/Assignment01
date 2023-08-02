@@ -16,11 +16,11 @@
     <div class="d-grid">
         <FluentDataGrid RowsData="@CategoryList">
             <PropertyColumn Property="@(x => x.CategoryName)" Sortable="true" />
-            @if (Role == AppRole.Admin) {
+@*            @if (Role == AppRole.Admin) {
                 <TemplateColumn>
                     <FluentButton Appearance="Appearance.Neutral" @onclick="() => Update(context.CategoryId)">Update</FluentButton>
                 </TemplateColumn>
-            } 
+            } *@
             <TemplateColumn>
                 <FluentButton Appearance="Appearance.Neutral" @onclick="() => Detail(context.CategoryId)">Detail</FluentButton>
             </TemplateColumn>
