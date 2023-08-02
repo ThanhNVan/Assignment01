@@ -43,6 +43,16 @@ public class OrderServiceProviders : IOrderServiceProviders
         return result;
     }
 
+    public async Task<IEnumerable<Order>> GetListByMemberIdAsync(int memberId) {
+        var result = default(IEnumerable<Order>);
+
+        var url = Routing.BaseUrl + Routing.OrderApi + Routing.ByMemberId + memberId.ToString();
+
+        result = await this._httpClient.GetFromJsonAsync<IEnumerable<Order>>(url);
+
+        return result;
+    }
+
     public async Task<IEnumerable<Order>> GetListByDateRangeAsync(DateTime startDate, DateTime endDate) {
         var result = default(List<Order>);
 

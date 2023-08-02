@@ -9,7 +9,9 @@ public interface IOrderServiceProviders
 {
     Task<Order> GetSingleByIdAsync(int id);
 
-    Task<List<Order>> GetListAllAsync(); 
+    Task<List<Order>> GetListAllAsync();
+
+    Task<IEnumerable<Order>> GetListByMemberIdAsync(int memberId);
 
     Task<IEnumerable<Order>> GetListByDateRangeAsync(DateTime startDate, DateTime endDate);
 

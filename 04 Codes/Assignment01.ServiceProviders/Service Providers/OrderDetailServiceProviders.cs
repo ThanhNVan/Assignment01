@@ -56,5 +56,15 @@ public class OrderDetailServiceProviders : IOrderDetailServiceProviders
         }
         return false;
     }
+
+    public async Task<OrderDetail> GetSingleByOrderIdAndProductIdAsync(int orderId, int productId) {
+        var result = default(OrderDetail);
+
+        var url = Routing.BaseUrl + Routing.OrderDetailApi + Routing.GetSingle + orderId.ToString() + "&&" + productId.ToString();
+
+        result = await this._httpClient.GetFromJsonAsync<OrderDetail>(url);
+
+        return result;
+    }
     #endregion
 }
