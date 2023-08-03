@@ -35,6 +35,7 @@ public abstract class BaseEntityDataProvider<TEntity, TContext> : IBaseEntityDat
     public async virtual Task<bool> UpdateAsync(TEntity entity) {
         try {
             using (TContext context = GetContext()) {
+                
                 context.Update(entity);
                 await context.SaveChangesAsync();
                 return true;
