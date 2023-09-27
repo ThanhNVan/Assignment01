@@ -13,8 +13,8 @@ public partial class CategoryDetail
 {
     #region [ Fields ]
     private IEnumerable<Product> _productListInit;
-
     #endregion
+
     #region [ Properties ]
     [Parameter]
 	public int CategoryId { get; set; }
